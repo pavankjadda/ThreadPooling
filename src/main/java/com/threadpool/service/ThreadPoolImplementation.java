@@ -6,14 +6,15 @@ public class ThreadPoolImplementation
 {
     public static void main(String[] args)
     {
-        Executor executor=Executors.newSingleThreadExecutor();
-        executor.execute(() ->
-        {
-            System.out.println("Inside execute method()");
-        });
+        /* Implement Executor */
+        ExecutorImpl executorImpl=new ExecutorImpl();
+        executorImpl.submitTasks();
 
-        /* Implementing Executor Service*/
+
+        /* Implement Executor Service Interface*/
         ExecutorServiceImpl executorServiceImpl=new ExecutorServiceImpl(10);
         executorServiceImpl.submitTasks();
+
+
     }
 }
