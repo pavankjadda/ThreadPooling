@@ -11,8 +11,7 @@ public class ThreadPoolExecutorImpl
     public ThreadPoolExecutorImpl(int coreNumberOfThreads, int maxNumberOfThreads, Long keepAliveTime)
     {
         //this.threadPoolExecutor= (ThreadPoolExecutor) Executors.newFixedThreadPool(coreNumberOfThreads);
-        this.threadPoolExecutor= new ThreadPoolExecutor(coreNumberOfThreads,maxNumberOfThreads, keepAliveTime,
-                TimeUnit.MILLISECONDS,new LinkedBlockingQueue<Runnable>());
+        this.threadPoolExecutor= new ThreadPoolExecutor(coreNumberOfThreads,maxNumberOfThreads, keepAliveTime, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>());
     }
 
     public void submitTasks()
