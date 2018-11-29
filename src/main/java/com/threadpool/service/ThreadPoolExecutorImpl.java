@@ -7,15 +7,12 @@ import java.util.concurrent.*;
 public class ThreadPoolExecutorImpl
 {
     private ThreadPoolExecutor threadPoolExecutor =null;
-    private ExecutorService executorService = null;
 
     public ThreadPoolExecutorImpl(int coreNumberOfThreads, int maxNumberOfThreads, Long keepAliveTime)
     {
         //this.threadPoolExecutor= (ThreadPoolExecutor) Executors.newFixedThreadPool(coreNumberOfThreads);
         this.threadPoolExecutor= new ThreadPoolExecutor(coreNumberOfThreads,maxNumberOfThreads, keepAliveTime,
                 TimeUnit.MILLISECONDS,new LinkedBlockingQueue<Runnable>());
-        this.executorService= this.threadPoolExecutor;
-
     }
 
     public void submitTasks()
@@ -49,29 +46,34 @@ public class ThreadPoolExecutorImpl
             {
                 callableTask= () ->
                 {
-                    //TimeUnit.MILLISECONDS.sleep(300);
+                    TimeUnit.MILLISECONDS.sleep(100);
                     System.out.println("Active Number of Threads: "+threadPoolExecutor.getActiveCount() +" Pool Size: "+threadPoolExecutor.getPoolSize());
+                    System.out.println("getCompletedTaskCount() "+threadPoolExecutor.getCompletedTaskCount());
                     return "Current Thread: "+Thread.currentThread().getName();
                 };
                 callableList.add(callableTask);
             }
             try
             {
-                List<Future<String>> futureList=executorService.invokeAll(callableList,1000L,TimeUnit.MILLISECONDS);
+                List<Future<String>> futureList=threadPoolExecutor.invokeAll(callableList,100000L,TimeUnit.MILLISECONDS);
                 for(Future<String> message: futureList)
-                    System.out.println(message.get());
+                {
+                    message.get();
+                    //System.out.println(message.get());
+                }
+
             }
             catch (CancellationException e)
             {
-                System.out.println("CancellationException occurred. executorService.invokeAll() Timeout Hit");
+                System.out.println("CancellationException occurred. threadPoolExecutor.invokeAll() Timeout Hit");
             }
 
-            //executorService.shutdown();
-            List<Runnable> notExecutedTasks = executorService.shutdownNow();
+            //threadPoolExecutor.shutdown();
+            List<Runnable> notExecutedTasks = threadPoolExecutor.shutdownNow();
             for (Runnable runnable:notExecutedTasks)
                 System.out.println("Not Executed Task: "+runnable.toString());
 
-            shutdownExecutorService(executorService,500);
+            shutdownthreadPoolExecutor(threadPoolExecutor,500);
 
         }
 
@@ -86,7 +88,7 @@ public class ThreadPoolExecutorImpl
         try
         {
             Callable<String> callableTask=addNewCallableTask(" File1 ");
-            Future<String> future=executorService.submit(callableTask);
+            Future<String> future=threadPoolExecutor.submit(callableTask);
             String result=null;
             try
             {
@@ -99,7 +101,7 @@ public class ThreadPoolExecutorImpl
                 e.printStackTrace();
             }
 
-            shutdownExecutorService(executorService,500);
+            shutdownthreadPoolExecutor(threadPoolExecutor,500);
         }
         catch (Exception e)
         {
@@ -118,18 +120,18 @@ public class ThreadPoolExecutorImpl
     }
 
 
-    private void shutdownExecutorService(ExecutorService executorService, int timeout)
+    private void shutdownthreadPoolExecutor(ThreadPoolExecutor threadPoolExecutor, int timeout)
     {
         try
         {
-            if (!executorService.awaitTermination(timeout, TimeUnit.MILLISECONDS))
+            if (!threadPoolExecutor.awaitTermination(timeout, TimeUnit.MILLISECONDS))
             {
-                executorService.shutdownNow();
+                threadPoolExecutor.shutdownNow();
             }
         }
         catch (InterruptedException e)
         {
-            executorService.shutdownNow();
+            threadPoolExecutor.shutdownNow();
         }
     }
 }
