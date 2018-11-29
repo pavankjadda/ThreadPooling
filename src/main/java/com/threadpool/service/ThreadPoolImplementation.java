@@ -16,8 +16,9 @@ public class ThreadPoolImplementation
         //executorServiceImpl.submitTasks();
 
 
-        ThreadPoolExecutorImpl threadPoolExecutorImpl=new ThreadPoolExecutorImpl(10,20);
-        threadPoolExecutorImpl.submitTasks();
+        ThreadPoolExecutorImpl threadPoolExecutorImpl=new ThreadPoolExecutorImpl(10,20,0L);
+        threadPoolExecutorImpl.invokeAll();
+        //threadPoolExecutorImpl.invokeOnebyOne();
 
     }
 }
