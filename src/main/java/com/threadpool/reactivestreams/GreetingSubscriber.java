@@ -23,9 +23,8 @@ public class GreetingSubscriber<T> implements Subscriber<T>
     @Override
     public void onNext(T item)
     {
-        System.out.println("Item Received: "+item.toString());
-        Greeting greeting= (Greeting) item;
-        System.out.println(greeting.toString());
+        consumedMessages.add(item);
+        System.out.println("Greeting Received: "+item.toString());
         subscription.request(1);
     }
 
@@ -39,5 +38,10 @@ public class GreetingSubscriber<T> implements Subscriber<T>
     public void onComplete()
     {
         System.out.println("All Messages received");
+    }
+
+    public int getConsumedMessages()
+    {
+        return consumedMessages.size();
     }
 }
