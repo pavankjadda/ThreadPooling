@@ -17,8 +17,10 @@ public class ThreadPoolImplementation
 
 
         ThreadPoolExecutorImpl threadPoolExecutorImpl=new ThreadPoolExecutorImpl(10,20,0L);
-        threadPoolExecutorImpl.invokeAll();
+        //threadPoolExecutorImpl.invokeAll();
         //threadPoolExecutorImpl.invokeOnebyOne();
+
+
 
     }
 }
