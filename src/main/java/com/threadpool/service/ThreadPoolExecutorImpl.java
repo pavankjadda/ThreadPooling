@@ -58,7 +58,7 @@ public class ThreadPoolExecutorImpl
                 for(Future<String> message: futureList)
                 {
                     message.get();
-                    //System.out.println(message.get());
+                    System.out.println(message.get());
                 }
 
             }

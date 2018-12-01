@@ -1,7 +1,5 @@
 package com.threadpool.service;
 
-import java.util.concurrent.*;
-
 public class ThreadPoolImplementation
 {
     public static void main(String[] args)
@@ -17,9 +15,8 @@ public class ThreadPoolImplementation
 
 
         ThreadPoolExecutorImpl threadPoolExecutorImpl=new ThreadPoolExecutorImpl(10,20,0L);
-        //threadPoolExecutorImpl.invokeAll();
+        threadPoolExecutorImpl.invokeAll();
         //threadPoolExecutorImpl.invokeOnebyOne();
-
 
 
     }
