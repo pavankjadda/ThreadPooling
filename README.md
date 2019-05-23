@@ -1,2 +1,2 @@
-# ThreadPooling
-Multi Threadding with Thread Pooling using Java, Guava and Spring Boot
+# Thread Pooling
+Multi Threading with Thread Pooling using Java, Guava and Spring Boot
