@@ -1,4 +1,4 @@
-package com.threadpool.model;
+package com.pj.model;
 
 import lombok.Data;
 
@@ -8,15 +8,8 @@ import java.time.LocalDateTime;
 public class Greeting
 {
     private String message;
-
     private String sentBy;
-
     private LocalDateTime sentDataTime;
-
-
-    public Greeting()
-    {
-    }
 
     public Greeting(String message, String sentBy, LocalDateTime sentDataTime)
     {

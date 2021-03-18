@@ -1,17 +1,19 @@
-package com.threadpool.reactivestreams;
+package com.pj.reactivestreams;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.Flow.*;
-
-import com.threadpool.model.Greeting;
-
+import java.util.concurrent.Flow.Subscriber;
+import java.util.concurrent.Flow.Subscription;
 
 public class GreetingSubscriber<T> implements Subscriber<T>
 {
+    private final Logger logger = LoggerFactory.getLogger(getClass());
     private Subscription subscription;
-    private List<T> consumedMessages=new LinkedList<>();
+    private final List<T> consumedMessages = new LinkedList<>();
 
     @Override
     public void onSubscribe(Subscription subscription)
@@ -24,7 +26,7 @@ public class GreetingSubscriber<T> implements Subscriber<T>
     public void onNext(T item)
     {
         consumedMessages.add(item);
-        System.out.println("Greeting Received: "+item.toString());
+        logger.info("Greeting Received: {}", item);
         subscription.request(1);
     }
 
@@ -37,7 +39,7 @@ public class GreetingSubscriber<T> implements Subscriber<T>
     @Override
     public void onComplete()
     {
-        System.out.println("All Messages received");
+        logger.info("All Messages received");
     }
 
     public int getConsumedMessages()

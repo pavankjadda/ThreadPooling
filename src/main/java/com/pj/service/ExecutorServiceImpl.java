@@ -1,4 +1,7 @@
-package com.threadpool.service;
+package com.pj.service;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -6,37 +9,34 @@ import java.util.concurrent.Future;
 
 public class ExecutorServiceImpl
 {
-    private ExecutorService executorService=null;
+    private final ExecutorService executorService;
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     public ExecutorServiceImpl(int numberOfThreads)
     {
-        executorService= Executors.newFixedThreadPool(numberOfThreads);;
+        executorService = Executors.newFixedThreadPool(numberOfThreads);
     }
 
     public void submitTasks()
     {
-        Future future=null;
-        for(int i=0;i<100;i++)
+        Future future = null;
+        for (int i = 0; i < 100; i++)
         {
             future=executorService.submit(()->
             {
-                System.out.println("Thread Name: "+Thread.currentThread().getName());
+                logger.info("Thread Name: {}", Thread.currentThread().getName());
                 return Thread.currentThread().getName();
             });
         }
 
         try
         {
-            System.out.println("Thread Name: "+future.get());
+            logger.info("Thread Name: {}", future.get());
             future.isDone();
         }
         catch (Exception e)
         {
             e.printStackTrace();
-        }
-        finally
-        {
-            Runtime.getRuntime().gc();
         }
     }
 }

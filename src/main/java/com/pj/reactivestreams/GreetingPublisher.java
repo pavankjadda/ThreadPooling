@@ -1,6 +1,7 @@
-package com.threadpool.reactivestreams;
+package com.pj.reactivestreams;
 
-import java.util.concurrent.Flow.*;
+import java.util.concurrent.Flow.Publisher;
+import java.util.concurrent.Flow.Subscriber;
 import java.util.concurrent.SubmissionPublisher;
 
 public class GreetingPublisher<T> implements Publisher<T>

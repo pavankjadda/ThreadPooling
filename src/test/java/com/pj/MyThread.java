@@ -1,4 +1,4 @@
-package com.threadpool;
+package com.pj;
 
 public class MyThread implements Runnable
 {
